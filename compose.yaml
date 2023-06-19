@@ -1,0 +1,12 @@
+services:
+  post_man:
+    container_name: post_man_container
+    image: post_man:0.1
+    restart: always
+    volumes:
+      - type: bind
+        source: /home/nico/sambashare/post_man/logs
+        target: /usr/src/app/logs
+      - type: bind
+        source: /home/nico/sambashare/post_man/config
+        target: /usr/src/app/config
