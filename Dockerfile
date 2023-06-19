@@ -7,8 +7,9 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN apt-get update
+RUN apk add postgresql-dev gcc python3-dev musl-dev
 RUN pip install pipenv
 RUN pipenv install
-RUN apk add postgresql-dev gcc python3-dev musl-dev
+
 
 ENTRYPOINT ["pipenv", "run", "python", "./main.py"]
