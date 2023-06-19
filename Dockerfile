@@ -7,9 +7,8 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN apt-get update
-RUN apt install postgresql11-server
 RUN pip install pipenv
 RUN pipenv install
-RUN PATH=$PATH:/usr/pgsql-11/bin/
+RUN apk add postgresql-dev gcc python3-dev musl-dev
 
 ENTRYPOINT ["pipenv", "run", "python", "./main.py"]
