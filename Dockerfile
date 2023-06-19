@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN apt-get update
+RUN apt install postgresql postgresql-contrib
 RUN pip install pipenv
 RUN pipenv install
 
