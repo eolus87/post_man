@@ -10,12 +10,15 @@ from labourers.leader import Leader
 from network.ping_function import ping_function
 from power.power_function import power_function
 from interfaces.postgresql import PostGreSQL
+from utilities.init_logger import init_logger
 
-# Load configuration
+logger = init_logger("post_man_logs.txt")
+
+logger.info("Reading configuration")
 configuration_path = os.path.join("config", "config.yaml")
 configuration = load_yaml(configuration_path)
 
-# Interface initialization
+logger.info("Initializing PostGreSQL")
 postgre_interfacer = PostGreSQL(
     configuration["postgresql"]["ip"],
     configuration["postgresql"]["port"],
@@ -24,24 +27,24 @@ postgre_interfacer = PostGreSQL(
     configuration["postgresql"]["table_name"]
 )
 
-# Initialization of leaders
+logger.info("Initializing leaders")
 ping_leader = Leader(configuration["network"], ping_function, postgre_interfacer.insert_data)
 power_leader = Leader(configuration["power"], power_function, postgre_interfacer.insert_data)
-# Starting leaders
 try:
+    logger.info("Starting leaders")
     ping_leader.start()
     power_leader.start()
+    logger.info("Leaders started")
     while True:
-        print("In the loop")
         time.sleep(1)
 except KeyboardInterrupt as inst:
-    print(f"Error: {inst}")
+    logger.error(f"Code stopped by Keyboard Interrupt: {inst}")
 
 # Stopping and closing
-print("Stopping Leaders")
+logger.info("Stopping Leaders")
 ping_leader.stop()
 power_leader.stop()
-print("Stopped Leaders")
+logger.info("Stopped Leaders")
 postgre_interfacer.close_connection()
-print("Stopped interface")
-print("Exiting code")
+logger.info("Stopped interface")
+logger.info("Exiting code")

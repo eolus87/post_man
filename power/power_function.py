@@ -14,12 +14,8 @@ if platform.system() == 'Windows':
 
 async def power_request(target: str) -> Tuple[float, str]:
     plug = kasa.SmartPlug(target)
-    try:
-        await plug.update()
-        power = plug.emeter_realtime.power
-    except Exception as inst:
-        print(f"Power request function failed with error: {inst}")
-        power = -1
+    await plug.update()
+    power = plug.emeter_realtime.power
     del plug
     return power, "W"
 

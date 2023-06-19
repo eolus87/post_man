@@ -1,6 +1,7 @@
 __author__ = "Nicolas Gutierrez"
 
 # Standard libraries
+import logging
 from queue import Queue
 import threading
 from threading import Thread
@@ -13,6 +14,8 @@ from labourers.worker import Worker
 
 class Leader:
     def __init__(self, leader_config: Dict, work_function: Callable, publish_function: Callable) -> None:
+        self.__logger = logging.getLogger("post_man" + "." + __name__)
+
         # Initialization of components
         self.__measures_queue = Queue(maxsize=len(leader_config["devices"])*10)
         self.__workers = self.__workers_instantiation(leader_config, self.__measures_queue, work_function)
@@ -43,7 +46,10 @@ class Leader:
     def __leader_management(self, publish_function: Callable) -> None:
         while self.__keep_managing:
             while not self.__measures_queue.empty():
-                publish_function(self.__measures_queue.get())
+                try:
+                    publish_function(self.__measures_queue.get())
+                except Exception as inst:
+                    self.__logger.error(f"Error while publishing using: {inst}")
             time.sleep(self.__management_thread_loop_sleep)
 
     def start(self) -> None:
@@ -65,4 +71,6 @@ class Leader:
             time.sleep(self.__management_thread_exit_sleep)
             self.__management_thread.join()
         else:
-            raise Exception("Threads have not been started yet")
+            message = "Threads have not been started yet"
+            self.__logger.error(message)
+            raise Exception(message)
