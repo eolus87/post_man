@@ -1,0 +1,21 @@
+network:
+  sensor_type: ping
+  devices:
+    google:
+      address: 8.8.8.8
+      type: 1
+      rate: 0.5
+
+power:
+  sensor_type: power
+  devices:
+    printer_plug:
+      address: X.X.X.X
+      rate: 0.2
+
+postgresql:
+  ip: X.X.X.X
+  port: YYYY
+  user: amazing_username
+  password: fantastic_password
+  table_name: wonderful_db_name
