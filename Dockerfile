@@ -6,8 +6,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN apt-get update
-RUN apk add postgresql-dev gcc python3-dev musl-dev
+# musl-dev is a "general" C compiler
+RUN apt-get update && apt-get install -y libpq-dev gcc
 RUN pip install pipenv
 RUN pipenv install
 
