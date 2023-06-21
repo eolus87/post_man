@@ -14,7 +14,7 @@ from labourers.worker import Worker
 
 class Leader:
     def __init__(self, leader_config: Dict, work_function: Callable, publish_function: Callable) -> None:
-        self.__logger = logging.getLogger("post_man" + "." + __name__)
+        self.__logger = logging.getLogger(f"post_man.{__name__}")
 
         # Initialization of components
         self.__measures_queue = Queue(maxsize=len(leader_config["devices"])*10)

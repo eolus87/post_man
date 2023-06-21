@@ -16,7 +16,7 @@ from data_classes.data_point import DataPoint
 
 class Worker(Thread):
     def __init__(self, sensor_type: str, target_address: str, rate: float, work_function: Callable, data_queue: Queue) -> None:
-        self.__logger = logging.getLogger("post_man" + "." + __name__)
+        self.__logger = logging.getLogger(f"post_man.{__name__}")
 
         self.__sensor_type = sensor_type
         self.__target_address = target_address
