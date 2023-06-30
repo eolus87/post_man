@@ -9,6 +9,7 @@ pyyaml = "*"
 pythonping = "*"
 python-kasa = "*"
 numpy = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 
