@@ -16,7 +16,7 @@ def wifi_iot_request(target: str) -> List[List[Union[str, float]]]:
 
     :param target: ip of the sensor with html web interface
     :return: list with as many lists as sensors and 3 components correctly
-    formatted.
+    formatted as type_of_sensor, value and unit.
     """
     html = urlopen(f"http://{target}").read()
     soup = BeautifulSoup(html, features="html.parser")
