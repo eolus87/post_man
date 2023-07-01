@@ -34,7 +34,6 @@ class Leader:
         for target_key in config["devices"].keys():
             list_of_threads.append(
                 Worker(
-                    config["sensor_type"],
                     config["devices"][target_key]["address"],
                     config["devices"][target_key]["rate"],
                     work_function,
