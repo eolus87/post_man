@@ -40,6 +40,7 @@ try:
     logger.info("Starting leaders")
     ping_leader.start()
     power_leader.start()
+    wifi_iot_leader.start()
     logger.info("Leaders started")
     while True:
         time.sleep(1)
