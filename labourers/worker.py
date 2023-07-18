@@ -40,7 +40,10 @@ class Worker(Thread):
                                            unit=data[2])
                     self.__data_queue.put(data_point)
             except Exception as inst:
-                self.__logger.error(f"Error while using {self.__work_function}: {inst}")
+                self.__logger.error(
+                    f"Error while using {self.__work_function}"
+                    f"-target{self.__target_address}: {inst}"
+                )
 
             final_time = time.time()
             sleeping_time = self.__period - (final_time-initial_time)
