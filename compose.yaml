@@ -1,7 +1,7 @@
 services:
   post_man:
     container_name: post_man_container
-    image: post_man:0.3
+    image: post_man:0.2
     restart: always
     volumes:
       - type: bind
